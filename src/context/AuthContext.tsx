@@ -72,9 +72,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { name } },
+      options: {
+        data: { name },
+        emailRedirectTo: `${window.location.origin}/dashboard`,
+      },
     })
     if (error) throw new Error(error.message)
+    // Supabase silently "succeeds" for existing emails but returns an empty identities array
+    if (data.user?.identities?.length === 0) {
+      throw new Error('An account with this email already exists. Please log in instead.')
+    }
     // session is null when Supabase requires email confirmation before login
     return { needsConfirmation: !data.session }
   }
