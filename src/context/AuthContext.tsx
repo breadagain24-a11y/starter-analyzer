@@ -78,8 +78,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       },
     })
     if (error) throw new Error(error.message)
-    // Supabase silently "succeeds" for existing emails but returns an empty identities array
-    if (data.user?.identities?.length === 0) {
+    // Supabase silently "succeeds" for existing emails in two ways:
+    // - confirmations OFF: identities array is empty
+    // - confirmations ON: email_confirmed_at is set but there's no session (fake success)
+    if (
+      data.user?.identities?.length === 0 ||
+      (data.user?.email_confirmed_at && !data.session)
+    ) {
       throw new Error('An account with this email already exists. Please log in instead.')
     }
     // session is null when Supabase requires email confirmation before login
