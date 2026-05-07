@@ -50,6 +50,8 @@ SCORE LABELS:
 - 35–54: NEEDS ATTENTION
 - 0–34: CRITICAL
 
+TRUST USER-REPORTED SYMPTOMS: If a user selects a symptom (e.g. "Liquid layer on top (hooch)"), treat it as confirmed fact. Do not say "not clearly visible in the photo." Acknowledge it directly and factor it into your score and diagnosis. Hooch can appear clear, grey, dark brown, or nearly black — the user is looking at the jar in person, trust their report over your photo interpretation. If hooch is reported, set hoochDetected: true.
+
 BAKE READINESS:
 - Only set bakeReadinessHours to a number if the starter is at GOOD or THRIVING and currently within 2h of or past peak.
 - Otherwise set to null and explain in bakeReadinessNote.

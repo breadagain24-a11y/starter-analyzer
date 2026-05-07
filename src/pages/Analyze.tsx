@@ -52,7 +52,7 @@ const AROMA_OPTIONS = [
   { value: 'complex',      label: 'Complex, balanced, tangy ✓✓' },
 ]
 const RATIO_OPTIONS = ['1:1:1', '1:2:2', '1:3:3', '1:5:5', 'Custom']
-const HOURS_OPTIONS = [4, 8, 12, 18, 24, 36]
+const HOURS_OPTIONS = [2, 4, 8, 12, 18, 24, 36, 'Custom']
 const SYMPTOM_OPTIONS = [
   'Liquid layer on top (hooch)',
   'Unusual color — pink/orange/black spots',
@@ -111,6 +111,7 @@ export default function Analyze() {
   const [newStarterHydration, setNewStarterHydration] = useState(100)
 
   const [customRatio, setCustomRatio] = useState('')
+  const [customHours, setCustomHours] = useState('')
 
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [imageData, setImageData] = useState<{ base64: string; mimeType: string; sizeKb: number } | null>(null)
@@ -588,7 +589,24 @@ export default function Analyze() {
               <div className="space-y-5">
                 <div>
                   <label className="block text-sm font-semibold mb-2">Hours since last feeding</label>
-                  <SegmentedSelect options={HOURS_OPTIONS.map(h => ({ value: String(h), label: `${h}h` }))} value={String(questionnaire.hoursSinceLastFeed)} onChange={v => setQuestionnaire(q => ({ ...q, hoursSinceLastFeed: Number(v) }))} />
+                  <SegmentedSelect
+                    options={HOURS_OPTIONS.map(h => ({ value: String(h), label: h === 'Custom' ? 'Custom' : `${h}h` }))}
+                    value={questionnaire.hoursSinceLastFeed === -1 ? 'Custom' : String(questionnaire.hoursSinceLastFeed)}
+                    onChange={v => {
+                      if (v === 'Custom') { setQuestionnaire(q => ({ ...q, hoursSinceLastFeed: -1 })) }
+                      else { setCustomHours(''); setQuestionnaire(q => ({ ...q, hoursSinceLastFeed: Number(v) })) }
+                    }}
+                  />
+                  {questionnaire.hoursSinceLastFeed === -1 && (
+                    <input
+                      type="number"
+                      min={1} max={200}
+                      value={customHours}
+                      onChange={e => { setCustomHours(e.target.value); setQuestionnaire(q => ({ ...q, hoursSinceLastFeed: Number(e.target.value) })) }}
+                      placeholder="e.g. 48"
+                      className="mt-2 w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#D69A3A]"
+                    />
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-semibold mb-2">Feeding ratio used</label>

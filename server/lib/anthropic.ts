@@ -55,8 +55,10 @@ IMAGE ANALYSIS — look for:
 - Rise level visible in jar (markers, rubber band, jar height)
 - Surface texture (cross-check against reported surfaceAppearance)
 - Color (cream/ivory = healthy, pink/orange tinge = contamination risk, grey = surface oxidation, black = serious contamination alert)
-- Hooch (liquid layer on top = over-fermented, hungry)
+- Hooch: a liquid separation layer that can appear clear, grey, dark brown, or nearly black — NOT just clear liquid. Dark hooch is common and normal. If the user reports hooch in their symptoms, SET hoochDetected: true AND reference it explicitly in your diagnosis. Never dismiss or downplay a user-reported hooch observation. The user is looking at the jar in person — trust their report over your photo interpretation.
 - Consistency visible through glass (if visible)
+
+TRUST USER-REPORTED SYMPTOMS: If a user selects a symptom (e.g. "Liquid layer on top (hooch)"), treat it as confirmed fact. Do not say "not clearly visible in the photo." Acknowledge it directly and factor it into your score and diagnosis.
 
 OUTPUT FORMAT — respond ONLY with valid JSON, no markdown, no explanation outside the JSON:
 {
