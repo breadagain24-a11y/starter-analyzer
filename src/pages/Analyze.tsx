@@ -163,7 +163,6 @@ export default function Analyze() {
       flourType,
       waterType: newStarterWater,
       targetHydration: newStarterHydration,
-      userId: user!.id,
     })
   }
 

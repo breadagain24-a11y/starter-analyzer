@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
+import type { ReactNode } from 'react'
 import { supabase } from '../lib/supabase'
 import type { User } from '../types'
 
@@ -34,7 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // onAuthStateChange covers initial load via INITIAL_SESSION.
     // We set user immediately (no await) so loading unblocks right away,
     // then enrich with profile data in the background.
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
         const su = session.user
         // Set user with auth defaults immediately — no network wait

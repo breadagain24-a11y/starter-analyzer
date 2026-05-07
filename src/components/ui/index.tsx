@@ -1,4 +1,4 @@
-import { ReactNode, ButtonHTMLAttributes, HTMLAttributes } from 'react'
+import type { ReactNode, ButtonHTMLAttributes, HTMLAttributes } from 'react'
 
 // Badge / pill
 export function Badge({ children, className = '' }: { children: ReactNode; className?: string }) {

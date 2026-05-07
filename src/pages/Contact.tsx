@@ -1,4 +1,5 @@
-import { useState, FormEvent } from 'react'
+import { useState } from 'react'
+import type { FormEvent } from 'react'
 import Nav from '../components/layout/Nav'
 import Footer from '../components/layout/Footer'
 import { Badge, Button, Card } from '../components/ui'
